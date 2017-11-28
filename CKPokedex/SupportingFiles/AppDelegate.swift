@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        let homeController = HomeController(collectionViewLayout: UICollectionViewFlowLayout())
+        let homeController = HomeController(networkService: PokemonNetwork())
         window?.rootViewController = UINavigationController(rootViewController: homeController)
         return true
     }
