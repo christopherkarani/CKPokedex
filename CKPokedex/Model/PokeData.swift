@@ -10,15 +10,11 @@ import Foundation
 import TRON
 import SwiftyJSON
 
-
 struct PokemonData : JSONDecodable {
-    
-    
-    
-    init(json: JSON) throws {
+     init(json: JSON) throws {
         name = json["name"].stringValue
         id = json["id"].stringValue
-        spriteUrlString = json["sprites"].stringValue
+        spriteUrlString = json["sprites"]["front_default"].stringValue
     }
     
     var name: String

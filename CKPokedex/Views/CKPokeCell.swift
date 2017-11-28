@@ -33,7 +33,6 @@ class CKPokeCell: UICollectionViewCell {
     
     let pokemonImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = #imageLiteral(resourceName: "charmander")
         return imageView
     }()
     

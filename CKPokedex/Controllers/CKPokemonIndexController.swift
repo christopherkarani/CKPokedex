@@ -8,12 +8,13 @@
 
 import UIKit
 import IGListKit
+import Kingfisher
 
 
 class CKPokemonIndexController : ListSectionController {
     
     var pokemon : Pokemon?
-    
+    let cache : ImageCache = ImageCache(name: "kfCache")
     
     override func sizeForItem(at index: Int) -> CGSize {
         guard let collectionView = collectionContext else {
@@ -28,11 +29,34 @@ class CKPokemonIndexController : ListSectionController {
         }
         
         guard let pokemon = pokemon else { return UICollectionViewCell()}
+        if let poke = pokemon.infomation {
+            if let url = URL(string: poke.spriteUrlString) {
+                setImage(with: url, and: cell)
+            }
+            
+            cell.idLabel.setup(poke.id)
+            cell.nameLabel.setup(poke.name)
+        }
 
-        cell.pokemonImage.image = #imageLiteral(resourceName: "charmander")
-        cell.idLabel.setup(pokemon.urlString)
-        cell.nameLabel.setup(pokemon.name)
         return cell
+    }
+    
+    private func setImage(with url: URL, and cell: CKPokeCell) {
+        KingfisherManager.shared.cache.retrieveImage(forKey: url.absoluteString, options: nil) { (image, cache) in
+            if let image = image {
+                cell.pokemonImage.image = image
+                return
+            } else {
+                KingfisherManager.shared.downloader.downloadImage(with: url, completionHandler: { (image, error, url, data) in
+                    if let image = image {
+                        cell.pokemonImage.image = image
+                        if let url = url {
+                            KingfisherManager.shared.cache.store(image, forKey: url.absoluteString)
+                        }
+                    }
+                })
+            }
+        }
     }
     
     

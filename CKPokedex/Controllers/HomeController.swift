@@ -10,20 +10,29 @@ import UIKit
 import IGListKit
 import TRON
 
+protocol HomeControllerDelegate: class {
+    func reloadAdapter()
+}
+
 private let reuseIdentifier = "Cell"
 
 class HomeController: UICollectionViewController {
     var networkService : NetworkService
     var pokemons = [Pokemon]()
     
-    var updater : ListAdapterUpdater!
-    var adapter : ListAdapter!
+    lazy var adapter: ListAdapter = {
+        return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
+    }()
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupIGListKit()
         fetchData()
+    }
+    
+    func reloadAdapter() {
+        self.adapter.reloadData(completion: nil)
     }
     
     init(networkService: NetworkService) {
@@ -37,8 +46,6 @@ class HomeController: UICollectionViewController {
     }
     
     fileprivate func setupIGListKit() {
-        updater = ListAdapterUpdater()
-        adapter = ListAdapter(updater: updater, viewController: self, workingRangeSize: 3)
         adapter.collectionView = collectionView
         collectionView?.backgroundColor = .white
         adapter.dataSource = self
@@ -53,7 +60,6 @@ extension HomeController : ListAdapterDataSource {
     }
     
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-        let indexController = CKPokemonIndexController()
         return CKPokemonIndexController()
     }
     
