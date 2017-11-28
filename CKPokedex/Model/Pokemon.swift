@@ -19,11 +19,11 @@ class Pokemon: NSObject {
     init(name: String, urlString: String) {
         self.name = name
         self.urlString = urlString
-        let path = String.init(describing: urlString.prefix(33))
-        self.urlString.range(of: "https://pokeapi.co/api/v2/pokemon/")
-        print(path)
+        let path = String.init(describing: urlString.prefix(34))
+        
+        let indexString = self.urlString.replacingOccurrences(of: path, with: "")
         super.init()
-        networkService.fetchPokemonData(with: path, completion: { [weak self] (data) in
+        networkService.fetchPokemonData(with: indexString, completion: { [weak self] (data) in
             
             self?.infomation = data
         })

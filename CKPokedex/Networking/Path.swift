@@ -10,5 +10,5 @@ import Foundation
 
 
 struct Path {
-    static let pokemon : String = "pokemon"
+    static let pokemon : String = "pokemon/"
 }

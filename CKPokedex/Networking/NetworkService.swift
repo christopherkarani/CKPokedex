@@ -30,7 +30,8 @@ extension NetworkService where Self: PokemonNetwork {
     }
     
     func fetchPokemonData(with urlString: String, completion: @escaping((PokemonData) -> Void)) {
-        let reqest : APIRequest<PokemonData,PokemonError> = tron.request(urlString)
+        let path = Path.pokemon + urlString
+        let reqest : APIRequest<PokemonData,PokemonError> = tron.request(path)
         reqest.perform(withSuccess: { (data) in
             print("Data retrival complete")
             completion(data)
