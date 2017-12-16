@@ -13,30 +13,27 @@ import Kingfisher
 
 class CKPokemonIndexController : ListSectionController {
     
-    var pokemon : Pokemon?
+    var pokemonData : PokemonData?
     let cache : ImageCache = ImageCache(name: "kfCache")
     
     override func sizeForItem(at index: Int) -> CGSize {
         guard let collectionView = collectionContext else {
             fatalError("CKPokemonIndecController doesnt have a cell")
         }
-        return CGSize(width: collectionView.containerSize.width , height: 200)
+        return CGSize(width: collectionView.containerSize.width * 1/3 , height: 200)
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
         guard let cell = collectionContext?.dequeueReusableCell(of: CKPokeCell.self, for: self, at: index) as? CKPokeCell else {
             fatalError()
         }
+        guard let data = pokemonData else { return UICollectionViewCell()}
+        guard let id = data.id, let name = data.name, let spriteUrl = data.spriteUrlString else { return UICollectionViewCell() }
+        guard let url = URL(string: spriteUrl) else { return UICollectionViewCell() }
+        setImage(with: url, and: cell)
+        cell.idLabel.setup(id)
+        cell.nameLabel.setup(name)
         
-        guard let pokemon = pokemon else { return UICollectionViewCell()}
-        if let poke = pokemon.infomation {
-            if let url = URL(string: poke.spriteUrlString) {
-                setImage(with: url, and: cell)
-            }
-            
-            cell.idLabel.setup(poke.id)
-            cell.nameLabel.setup(poke.name)
-        }
 
         return cell
     }
@@ -61,7 +58,7 @@ class CKPokemonIndexController : ListSectionController {
     
     
     override func didUpdate(to object: Any) {
-        pokemon = object as? Pokemon
+        pokemonData = object as? PokemonData
     }
 }
 

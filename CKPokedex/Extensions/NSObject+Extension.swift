@@ -7,6 +7,7 @@
 //
 
 import IGListKit
+import RealmSwift
 
 // MARK: - IGListDiffable
 extension NSObject: ListDiffable {
@@ -20,3 +21,24 @@ extension NSObject: ListDiffable {
     }
     
 }
+
+//extension Object: ListDiffable {
+//    public func diffIdentifier() -> NSObjectProtocol {
+//        return self
+//    }
+//
+//    public func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
+//        return isEqual(object)
+//    }
+//}
+//
+//extension Results : ListDiffable {
+//    public func diffIdentifier() -> NSObjectProtocol {
+//        return self
+//    }
+//
+//    public func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
+//        return isEqual(object)
+//    }
+//}
+

@@ -24,15 +24,10 @@ enum PokeCellDataType {
     }
 }
 
-extension UILabel {
-    
-}
-
 class CKPokeCell: UICollectionViewCell {
-    
-    
     let pokemonImage: UIImageView = {
         let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
@@ -45,10 +40,6 @@ class CKPokeCell: UICollectionViewCell {
         let label = ValueLabel(.id)
         return label
     }()
-    
-    
-    
-    
 
     func setup(){
         contentView.addSubview(nameLabel)
@@ -58,8 +49,8 @@ class CKPokeCell: UICollectionViewCell {
         pokemonImage.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(20)
             make.left.equalToSuperview().offset(20)
-            make.width.equalTo(50)
-            make.height.equalTo(50)
+            make.width.equalTo(150)
+            make.height.equalTo(150)
         }
         
         idLabel.snp.makeConstraints { (make) in

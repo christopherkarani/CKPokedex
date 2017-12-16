@@ -8,11 +8,15 @@
 
 import Foundation
 import TRON
+import RealmSwift
+import Realm
 
 
-class Pokemon: NSObject {
-    var name: String
-    var urlString : String
+class Pokemon: Object {
+    let databaseService : DatabaseService = DatabaseManager()
+    @objc dynamic var name: String?
+    @objc dynamic var urlString : String?
+    
     var infomation : PokemonData? {
         didSet {
             let homeController = HomeController(networkService: PokemonNetwork())
@@ -21,14 +25,17 @@ class Pokemon: NSObject {
     }
     let networkService : NetworkService = PokemonNetwork()
     
-    init(name: String, urlString: String) {
+    convenience init(name: String, urlString: String) {
+        self.init()
         self.name = name
         self.urlString = urlString
-        super.init()
         networkService.fetchPokemonData(with: urlString, completion: { [weak self] (data) in
             self?.infomation = data
+            try! self?.databaseService.realmDatabase.write { [weak self] in
+                self?.databaseService.realmDatabase.add(self!)
+                self?.databaseService.realmDatabase.add(self!.infomation!)
+            }
         })
-
     }
 }
 

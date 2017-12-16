@@ -9,6 +9,9 @@
 import UIKit
 import IGListKit
 import TRON
+import RealmSwift
+
+
 
 protocol HomeControllerDelegate: class {
     func reloadAdapter()
@@ -19,6 +22,9 @@ private let reuseIdentifier = "Cell"
 class HomeController: UICollectionViewController {
     var networkService : NetworkService
     var pokemons = [Pokemon]()
+    let databaseService : DatabaseService = DatabaseManager()
+
+
     
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
@@ -29,8 +35,13 @@ class HomeController: UICollectionViewController {
         super.viewDidLoad()
         setupIGListKit()
         fetchData()
+
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+    }
+
     func reloadAdapter() {
         self.adapter.reloadData(completion: nil)
     }
@@ -56,7 +67,12 @@ class HomeController: UICollectionViewController {
 
 extension HomeController : ListAdapterDataSource {
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        return pokemons
+        let realmObjects = databaseService.realmDatabase.objects(PokemonData.self)
+        print("The First Real, Object is: ", realmObjects.first)
+        print("Realm Objects Count ",realmObjects.count)
+        let items = realmObjects.sorted {Int($0.id!)! < Int($1.id!)!}
+        
+        return items
     }
     
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {

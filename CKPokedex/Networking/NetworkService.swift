@@ -10,14 +10,18 @@ import UIKit
 import TRON
 
 
-protocol NetworkService: class {
+protocol NetworkService {
     var tron : TRON { get }
     func fetchPokemon(completion: @escaping (([Pokemon]) -> Void))
     func fetchPokemonData(with urlString: String, completion: @escaping((PokemonData) -> Void))
 }
 
-extension NetworkService where Self: PokemonNetwork {
-
+extension NetworkService {
+//    var tron : TRON {
+//        get {
+//            return TRON(baseURL: "https://pokeapi.co/api/v2/")
+//        }
+//    }
     
     func fetchPokemon(completion: @escaping (([Pokemon]) -> Void)) {
         let request : APIRequest<PokeCenter, PokemonError> = tron.request(Path.pokemon)

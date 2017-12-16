@@ -10,5 +10,5 @@ import Foundation
 import TRON
 
 class PokemonNetwork: NetworkService {
-    let tron = TRON(baseURL: "https://pokeapi.co/api/v2/")
+     var tron : TRON = TRON(baseURL: "https://pokeapi.co/api/v2/")
 }
