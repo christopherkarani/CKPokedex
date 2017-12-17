@@ -78,16 +78,23 @@ class LoginViewController: UIViewController {
 
     
     @objc func handleSignIn() {
-        guard let user = emailTextField.text, let password = passwordTextField.text else {
+        guard let user = emailTextField.text, let password = passwordTextField.text, let urlString = urlTextField.text else {
             print("Email or Password Error")
             return
         }
-        guard !(user.isEmpty), !(password.isEmpty) else {
+        guard !(user.isEmpty), !(password.isEmpty), !(urlString.isEmpty), let url = URL(string: urlString) else {
             print("EmailTextField or Password is empty")
             return
         }
         let credentials = SyncCredentials.usernamePassword(username: user, password: password)
-        SyncUser.logIn(with: credentials, server: <#T##URL#>, onCompletion: <#T##UserCompletionBlock##UserCompletionBlock##(RLMSyncUser?, Error?) -> Void#>)
+        SyncUser.logIn(with: credentials, server: url) { (user, error) in
+            if error != nil {
+                print("Error")
+                return
+            }
+            
+        
+        }
     }
     
     let databaseService: DatabaseService

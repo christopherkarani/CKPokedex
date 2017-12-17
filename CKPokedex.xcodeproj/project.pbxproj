@@ -29,6 +29,8 @@
 		18E901111FBF60BD0036F5D3 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E901101FBF60BD0036F5D3 /* HomeController.swift */; };
 		18FF3AE61FE641E0005156FB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FF3AE51FE641E0005156FB /* LoginViewController.swift */; };
 		18FF3AE81FE64D00005156FB /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FF3AE71FE64D00005156FB /* UIColor+Extension.swift */; };
+		18FF3AEB1FE66132005156FB /* ActivityIndicatorChildVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FF3AEA1FE66132005156FB /* ActivityIndicatorChildVC.swift */; };
+		18FF3AED1FE6618A005156FB /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FF3AEC1FE6618A005156FB /* UIViewController+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +57,8 @@
 		18E901101FBF60BD0036F5D3 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		18FF3AE51FE641E0005156FB /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		18FF3AE71FE64D00005156FB /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		18FF3AEA1FE66132005156FB /* ActivityIndicatorChildVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorChildVC.swift; sourceTree = "<group>"; };
+		18FF3AEC1FE6618A005156FB /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		1C3B026F87F22FB87B3308AA /* Pods-CKPokedex.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CKPokedex.release.xcconfig"; path = "Pods/Target Support Files/Pods-CKPokedex/Pods-CKPokedex.release.xcconfig"; sourceTree = "<group>"; };
 		847271E4321B79F35A7D8ABC /* Pods-CKPokedex.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CKPokedex.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CKPokedex/Pods-CKPokedex.debug.xcconfig"; sourceTree = "<group>"; };
 		DA768E5008BBD70866AD5096 /* Pods_CKPokedex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CKPokedex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -158,6 +162,7 @@
 		18E900FA1FBF5D5E0036F5D3 /* CKPokedex */ = {
 			isa = PBXGroup;
 			children = (
+				18FF3AE91FE66110005156FB /* ChildViewControllers */,
 				185299261FE3F08300844F7A /* Database */,
 				1824DD361FCD717300896771 /* Extensions */,
 				1824DD311FCCA96C00896771 /* Networking */,
@@ -181,6 +186,15 @@
 				1824DD2C1FCC9EBC00896771 /* ValueLabel.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		18FF3AE91FE66110005156FB /* ChildViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				18FF3AEA1FE66132005156FB /* ActivityIndicatorChildVC.swift */,
+				18FF3AEC1FE6618A005156FB /* UIViewController+Extension.swift */,
+			);
+			path = ChildViewControllers;
 			sourceTree = "<group>";
 		};
 		A9AF9355FF4D67A0732FDA41 /* Pods */ = {
@@ -356,10 +370,12 @@
 				1824DD381FCD718700896771 /* NSObject+Extension.swift in Sources */,
 				186B4C821FC9F2CB00B85F9C /* PokeCenter.swift in Sources */,
 				185299281FE3F0AE00844F7A /* DatabaseService.swift in Sources */,
+				18FF3AED1FE6618A005156FB /* UIViewController+Extension.swift in Sources */,
 				18E901111FBF60BD0036F5D3 /* HomeController.swift in Sources */,
 				1824DD3C1FCDAD8400896771 /* Pokemon.swift in Sources */,
 				18E900FC1FBF5D5E0036F5D3 /* AppDelegate.swift in Sources */,
 				1824DD2D1FCC9EBC00896771 /* ValueLabel.swift in Sources */,
+				18FF3AEB1FE66132005156FB /* ActivityIndicatorChildVC.swift in Sources */,
 				18E9010F1FBF5FBC0036F5D3 /* CKPokeCell.swift in Sources */,
 				18FF3AE61FE641E0005156FB /* LoginViewController.swift in Sources */,
 				1824DD401FCDB07A00896771 /* Path.swift in Sources */,
