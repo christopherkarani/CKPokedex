@@ -12,6 +12,8 @@ import RealmSwift
 
 class LoginViewController: UIViewController {
     
+
+    
     var stackViewHeight: CGFloat = 250
     
     let emailTextField : UITextField = {
@@ -110,12 +112,13 @@ class LoginViewController: UIViewController {
         addIndicator()
         
         let credentials = SyncCredentials.usernamePassword(username: user, password: password)
-        SyncUser.logIn(with: credentials, server: url) { (user, error) in
+        SyncUser.logIn(with: credentials, server: url) { [weak self ] (user, error) in
             if error != nil {
                 print("Error")
+                //self?.indicator?.remove()
                 return
             }
-            
+            //self?.indicator?.remove()
             
         }
     }

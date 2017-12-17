@@ -28,11 +28,20 @@ class PresenterView: UIView, UIIndicatorViewService {
     func setup() {
         let blurEffect = UIBlurEffect(style: .prominent)
         let visualEffectView = UIVisualEffectView(effect: blurEffect)
-
+        
         visualEffectView.frame = frame
         addSubview(visualEffectView)
+        visualEffectView.backgroundColor = .yellow
+        
+        
         visualEffectView.contentView.addSubview(indicator)
         visualEffectView.contentView.addSubview(textLabel)
+        
+        print("Number of views in visual EffectsView: ", visualEffectView.subviews.count)
+        
+        indicator.backgroundColor = .purple
+        textLabel.backgroundColor = .magenta
+        
         
         indicator.snp.makeConstraints { (make) in
             make.top.equalToSuperview().inset(10)
@@ -51,8 +60,8 @@ class PresenterView: UIView, UIIndicatorViewService {
     }
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         setup()
+        print("Number of views inside PresenterView: ", subviews.count)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -65,16 +74,21 @@ class ActivityIndicatorChildVC: UIViewController {
     var presenterView : PresenterView!
     override func viewDidLoad() {
         setup()
+        
+        view.backgroundColor = .red
+        
     }
     
     func setup() {
         presenterView = PresenterView(frame: .zero)
+        view.addSubview(presenterView)
+        presenterView.backgroundColor = .blue
         
         presenterView.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview()
             make.height.equalToSuperview().multipliedBy(0.3)
-            make.width.equalToSuperview().multipliedBy(0.3)
+            make.width.equalToSuperview().multipliedBy(0.6)
         }
     }
 }
