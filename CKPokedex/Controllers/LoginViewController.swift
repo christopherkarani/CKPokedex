@@ -7,10 +7,12 @@
 //
 
 import UIKit
-
+import RealmSwift
 
 
 class LoginViewController: UIViewController {
+    
+    var stackViewHeight: CGFloat = 250
     
     let emailTextField : UITextField = {
         let tf = UITextField()
@@ -21,6 +23,14 @@ class LoginViewController: UIViewController {
     let passwordTextField : UITextField = {
         let tf = UITextField()
         tf.placeholder = "Password"
+        tf.textColor = .white
+        tf.isSecureTextEntry = true
+        return tf
+    }()
+    
+    let urlTextField : UITextField = {
+        let tf = UITextField()
+        tf.placeholder = "Server Url"
         tf.textColor = .white
         return tf
     }()
@@ -36,9 +46,11 @@ class LoginViewController: UIViewController {
         button.layer.cornerRadius = 5
         return button
     }()
+    
+    
     lazy var stackView : UIStackView = { [weak self] in
         guard let strongSelf = self else { return UIStackView() }
-        var stack = UIStackView(arrangedSubviews: [strongSelf.emailTextField, strongSelf.passwordTextField, strongSelf.signInButton])
+        var stack = UIStackView(arrangedSubviews: [strongSelf.emailTextField, strongSelf.passwordTextField, strongSelf.signInButton, strongSelf.urlTextField])
         stack.spacing = 5
         stack.distribution = .fillEqually
         stack.axis = .vertical
@@ -62,8 +74,33 @@ class LoginViewController: UIViewController {
         return imageView
     }()
     
+    
+
+    
     @objc func handleSignIn() {
-        print(123)
+        guard let user = emailTextField.text, let password = passwordTextField.text else {
+            print("Email or Password Error")
+            return
+        }
+        guard !(user.isEmpty), !(password.isEmpty) else {
+            print("EmailTextField or Password is empty")
+            return
+        }
+        let credentials = SyncCredentials.usernamePassword(username: user, password: password)
+        SyncUser.logIn(with: credentials, server: <#T##URL#>, onCompletion: <#T##UserCompletionBlock##UserCompletionBlock##(RLMSyncUser?, Error?) -> Void#>)
+    }
+    
+    let databaseService: DatabaseService
+    
+    init(databaseService: DatabaseService) {
+        self.databaseService = databaseService
+        super.init(nibName: nil, bundle: nil)
+        
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
@@ -96,7 +133,7 @@ class LoginViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.top.equalTo(loginSpalshImage.snp.bottom).offset(10)
             make.width.equalToSuperview().inset(30)
-            make.height.equalTo(200)
+            make.height.equalTo(stackViewHeight)
         }
     }
     

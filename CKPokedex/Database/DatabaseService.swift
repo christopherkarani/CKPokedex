@@ -10,16 +10,11 @@ import Foundation
 import RealmSwift
 
 protocol DatabaseService {
-    var realmDatabase : Realm? { get }
-}
-
-extension DatabaseService {
-    
-    
+    var realmDatabase : Realm { get }
 }
 
 class DatabaseManager: DatabaseService {
-    var realmDatabase : Realm?
+    var realmDatabase : Realm
     
     init() {
         let syncServerURL = URL(string: "http://localhost:9080")!
