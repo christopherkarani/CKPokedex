@@ -22,23 +22,23 @@ class PresenterView: UIView, UIIndicatorViewService {
     var textLabel: UILabel = {
         let label = UILabel()
         label.text = "Loading..."
-        label.attributedText = NSAttributedString(string: "Loading...", attributes: [.font : UIFont.boldSystemFont(ofSize: 16), .foregroundColor: UIColor.white])
+        label.attributedText = NSAttributedString(string: "Loading...", attributes: [.font : UIFont.boldSystemFont(ofSize: 30), .foregroundColor: UIColor.lightGray])
+        label.textAlignment = .center
         return label
     }()
     
     func setup() {
-        let blurEffect = UIBlurEffect(style: .regular)
+        let blurEffect = UIBlurEffect(style: .extraLight)
         let visualEffectView = UIVisualEffectView(effect: blurEffect)
+        visualEffectView.layer.masksToBounds = true
+        visualEffectView.layer.cornerRadius = 7
 
         addSubview(visualEffectView)
         visualEffectView.contentView.addSubview(indicator)
         visualEffectView.contentView.addSubview(textLabel)
         
         print("Number of views in visual EffectsView: ", visualEffectView.subviews.count)
-        
 
-        
-        
         visualEffectView.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview()
@@ -54,10 +54,10 @@ class PresenterView: UIView, UIIndicatorViewService {
         }
         
         textLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(indicator.snp.bottom).inset(5)
+            make.top.equalTo(indicator.snp.bottom).inset(15)
             make.centerX.equalToSuperview()
             make.height.equalToSuperview().multipliedBy(0.3)
-            make.width.equalToSuperview().multipliedBy(0.8)
+            make.width.equalToSuperview()
         }
         
     }
@@ -89,8 +89,8 @@ class ActivityIndicatorChildVC: UIViewController {
         presenterView.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview()
-            make.height.equalToSuperview().multipliedBy(0.3)
-            make.width.equalToSuperview().multipliedBy(0.6)
+            make.height.equalToSuperview().multipliedBy(0.2)
+            make.width.equalToSuperview().multipliedBy(0.4)
         }
     }
 }
