@@ -31,9 +31,10 @@ class Pokemon: Object {
         self.urlString = urlString
         networkService.fetchPokemonData(with: urlString, completion: { [weak self] (data) in
             self?.infomation = data
-            try! self?.databaseService.realmDatabase.write { [weak self] in
-                self?.databaseService.realmDatabase.add(self!)
-                self?.databaseService.realmDatabase.add(self!.infomation!)
+
+            try! self?.databaseService.realmDatabase?.write { [weak self] in
+                self?.databaseService.realmDatabase?.add(self!)
+                self?.databaseService.realmDatabase?.add(self!.infomation!)
             }
         })
     }

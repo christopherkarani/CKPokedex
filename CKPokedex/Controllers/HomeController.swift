@@ -67,12 +67,12 @@ class HomeController: UICollectionViewController {
 
 extension HomeController : ListAdapterDataSource {
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        let realmObjects = databaseService.realmDatabase.objects(PokemonData.self)
-        print("The First Real, Object is: ", realmObjects.first)
-        print("Realm Objects Count ",realmObjects.count)
-        let items = realmObjects.sorted {Int($0.id!)! < Int($1.id!)!}
+        let realmObjects = databaseService.realmDatabase?.objects(PokemonData.self)
+        print("The First Real, Object is: ", realmObjects?.first)
+        print("Realm Objects Count ",realmObjects?.count)
+        let items = realmObjects?.sorted {Int($0.id!)! < Int($1.id!)!}
         
-        return items
+        return items ?? pokemons
     }
     
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
