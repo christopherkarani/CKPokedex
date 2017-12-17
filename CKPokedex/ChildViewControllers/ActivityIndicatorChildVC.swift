@@ -22,26 +22,29 @@ class PresenterView: UIView, UIIndicatorViewService {
     var textLabel: UILabel = {
         let label = UILabel()
         label.text = "Loading..."
+        label.attributedText = NSAttributedString(string: "Loading...", attributes: [.font : UIFont.boldSystemFont(ofSize: 16), .foregroundColor: UIColor.white])
         return label
     }()
     
     func setup() {
-        let blurEffect = UIBlurEffect(style: .prominent)
+        let blurEffect = UIBlurEffect(style: .regular)
         let visualEffectView = UIVisualEffectView(effect: blurEffect)
-        
-        visualEffectView.frame = frame
+
         addSubview(visualEffectView)
-        visualEffectView.backgroundColor = .yellow
-        
-        
         visualEffectView.contentView.addSubview(indicator)
         visualEffectView.contentView.addSubview(textLabel)
         
         print("Number of views in visual EffectsView: ", visualEffectView.subviews.count)
         
-        indicator.backgroundColor = .purple
-        textLabel.backgroundColor = .magenta
+
         
+        
+        visualEffectView.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
+            make.width.equalToSuperview()
+            make.height.equalToSuperview()
+        }
         
         indicator.snp.makeConstraints { (make) in
             make.top.equalToSuperview().inset(10)
@@ -53,8 +56,8 @@ class PresenterView: UIView, UIIndicatorViewService {
         textLabel.snp.makeConstraints { (make) in
             make.top.equalTo(indicator.snp.bottom).inset(5)
             make.centerX.equalToSuperview()
-            make.height.equalToSuperview().multipliedBy(0.2)
-            make.width.equalToSuperview().multipliedBy(0.2)
+            make.height.equalToSuperview().multipliedBy(0.3)
+            make.width.equalToSuperview().multipliedBy(0.8)
         }
         
     }
@@ -75,14 +78,13 @@ class ActivityIndicatorChildVC: UIViewController {
     override func viewDidLoad() {
         setup()
         
-        view.backgroundColor = .red
+        view.backgroundColor = .clear
         
     }
     
     func setup() {
         presenterView = PresenterView(frame: .zero)
         view.addSubview(presenterView)
-        presenterView.backgroundColor = .blue
         
         presenterView.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
