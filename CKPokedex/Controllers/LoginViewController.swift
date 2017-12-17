@@ -118,6 +118,8 @@ class LoginViewController: UIViewController {
                 //self?.indicator?.remove()
                 return
             }
+            
+            UserDefaults.standard.setLoggedInState(true)
             //self?.indicator?.remove()
             
         }
