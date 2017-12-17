@@ -24,24 +24,33 @@ private let reuseIdentifier = "Cell"
 class HomeController: UICollectionViewController {
     var networkService : NetworkService
     var pokemons = [Pokemon]()
-    let databaseService : DatabaseService = DatabaseManager()
+    let databaseService : DatabaseService = Database.shared
 
-
-    
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
+        guard UserDefaults.standard.isLoggedIn() != false else {
+            let loginViewController = LoginViewController()
+            present(loginViewController, animated: true, completion: nil)
+            return
+        }
         setupIGListKit()
         fetchData()
-
+        checkLoggedInState()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+    }
+    
+    func checkLoggedInState() {
+        let loginViewController = LoginViewController()
+        if !(UserDefaults.standard.isLoggedIn()) {
+            present(loginViewController, animated: true, completion: nil)
+        }
     }
 
     func reloadAdapter() {
@@ -70,11 +79,11 @@ class HomeController: UICollectionViewController {
 extension HomeController : ListAdapterDataSource {
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         let realmObjects = databaseService.realmDatabase.objects(PokemonData.self)
-        print("The First Real, Object is: ", realmObjects.first)
+        print("The First Real, Object is: ", realmObjects.first as Any)
         print("Realm Objects Count ",realmObjects.count)
         let items = realmObjects.sorted {Int($0.id!)! < Int($1.id!)!}
         
-        return items ?? pokemons
+        return items
     }
     
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {

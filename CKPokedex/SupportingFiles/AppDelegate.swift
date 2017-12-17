@@ -20,7 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         let homeController = HomeController(networkService: PokemonNetwork())
-        let loginViewController = LoginViewController(databaseService: DatabaseManager())
         window?.rootViewController = UINavigationController(rootViewController: homeController)
         return true
     }

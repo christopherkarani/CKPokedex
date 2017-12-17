@@ -13,7 +13,7 @@ import Realm
 
 
 class Pokemon: Object {
-    let databaseService : DatabaseService = DatabaseManager()
+    let database : Realm = Database.shared.realmDatabase
     @objc dynamic var name: String?
     @objc dynamic var urlString : String?
     
@@ -32,9 +32,9 @@ class Pokemon: Object {
         networkService.fetchPokemonData(with: urlString, completion: { [weak self] (data) in
             self?.infomation = data
 
-            try! self?.databaseService.realmDatabase.write { [weak self] in
-                self?.databaseService.realmDatabase.add(self!)
-                self?.databaseService.realmDatabase.add(self!.infomation!)
+            try! self?.database.write { [weak self] in
+                self?.database.add(self!)
+                self?.database.add(self!.infomation!)
             }
         })
     }
