@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,7 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         let homeController = HomeController(networkService: PokemonNetwork())
-        window?.rootViewController = UINavigationController(rootViewController: LoginViewController())
+        let realm = try! Realm()
+        window?.rootViewController = UINavigationController(rootViewController: LoginViewController(databaseService: DatabaseManager()))
         return true
     }
 

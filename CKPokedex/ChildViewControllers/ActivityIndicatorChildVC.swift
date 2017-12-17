@@ -8,9 +8,11 @@
 
 import UIKit
 
-
-class PresenterView: UIView {
-    let indicator: UIActivityIndicatorView = {
+protocol UIIndicatorViewService {
+    var indicator: UIActivityIndicatorView { get }
+}
+class PresenterView: UIView, UIIndicatorViewService {
+    var indicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
         indicator.startAnimating()
         indicator.hidesWhenStopped = true
@@ -60,15 +62,35 @@ class PresenterView: UIView {
 
 class ActivityIndicatorChildVC: UIViewController {
 
-    
-    
-    let presenterView : UIView = {
-       let view = UIView()
-        
-        
-        return view
-    }()
+    var presenterView : PresenterView!
     override func viewDidLoad() {
-        <#code#>
+        setup()
+    }
+    
+    func setup() {
+        presenterView = PresenterView(frame: .zero)
+        
+        presenterView.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(0.3)
+            make.width.equalToSuperview().multipliedBy(0.3)
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

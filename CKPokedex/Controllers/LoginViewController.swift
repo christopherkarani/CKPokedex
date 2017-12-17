@@ -16,13 +16,14 @@ class LoginViewController: UIViewController {
     
     let emailTextField : UITextField = {
         let tf = UITextField()
-        tf.placeholder = "Email"
+        tf.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [.font : UIFont.systemFont(ofSize: 16), .foregroundColor: UIColor.init(white: 0.70, alpha: 0.90)])
         return tf
     }()
     
     let passwordTextField : UITextField = {
         let tf = UITextField()
-        tf.placeholder = "Password"
+        //tf.placeholder = "Password"
+        tf.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [.font : UIFont.systemFont(ofSize: 16), .foregroundColor: UIColor.init(white: 0.70, alpha: 0.90)])
         tf.textColor = .white
         tf.isSecureTextEntry = true
         return tf
@@ -30,7 +31,7 @@ class LoginViewController: UIViewController {
     
     let urlTextField : UITextField = {
         let tf = UITextField()
-        tf.placeholder = "Server Url"
+        tf.attributedPlaceholder = NSAttributedString(string: "Url", attributes: [.font : UIFont.systemFont(ofSize: 16), .foregroundColor: UIColor.init(white: 0.70, alpha: 0.90)])
         tf.textColor = .white
         return tf
     }()
@@ -47,10 +48,22 @@ class LoginViewController: UIViewController {
         return button
     }()
     
+    var emailTextFieldSeperatorLine : UIView = {
+        let view = UIView()
+        view.backgroundColor = .lightGray
+        return view
+    }()
+    
+    var urlTextFieldSeperatorLine : UIView = {
+        let view = UIView()
+        view.backgroundColor = .lightGray
+        return view
+    }()
+    
     
     lazy var stackView : UIStackView = { [weak self] in
         guard let strongSelf = self else { return UIStackView() }
-        var stack = UIStackView(arrangedSubviews: [strongSelf.emailTextField, strongSelf.passwordTextField, strongSelf.signInButton, strongSelf.urlTextField])
+        var stack = UIStackView(arrangedSubviews: [strongSelf.emailTextField, strongSelf.urlTextField, strongSelf.passwordTextField, strongSelf.signInButton])
         stack.spacing = 5
         stack.distribution = .fillEqually
         stack.axis = .vertical
@@ -75,7 +88,14 @@ class LoginViewController: UIViewController {
     }()
     
     
-
+    
+    var indicator: ActivityIndicatorChildVC?
+    
+    func addIndicator() {
+        indicator = ActivityIndicatorChildVC(nibName: nil, bundle: nil)
+        guard indicator != nil else { return }
+        add(indicator!)
+    }
     
     @objc func handleSignIn() {
         guard let user = emailTextField.text, let password = passwordTextField.text, let urlString = urlTextField.text else {
@@ -86,6 +106,9 @@ class LoginViewController: UIViewController {
             print("EmailTextField or Password is empty")
             return
         }
+        
+        addIndicator()
+        
         let credentials = SyncCredentials.usernamePassword(username: user, password: password)
         SyncUser.logIn(with: credentials, server: url) { (user, error) in
             if error != nil {
@@ -93,7 +116,7 @@ class LoginViewController: UIViewController {
                 return
             }
             
-        
+            
         }
     }
     
@@ -120,6 +143,23 @@ class LoginViewController: UIViewController {
         view.addSubview(stackView)
         view.addSubview(loginSplashLogo)
         view.addSubview(loginSpalshImage)
+        
+        stackView.addSubview(emailTextFieldSeperatorLine)
+        stackView.addSubview(urlTextFieldSeperatorLine)
+        
+        emailTextFieldSeperatorLine.snp.makeConstraints { (make) in
+            make.top.equalTo(emailTextField.snp.bottom)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(1)
+            make.width.equalToSuperview()
+        }
+        
+        urlTextFieldSeperatorLine.snp.makeConstraints { (make) in
+            make.top.equalTo(urlTextField.snp.bottom)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(1)
+            make.width.equalToSuperview()
+        }
 
         
         loginSplashLogo.snp.makeConstraints { (make) in

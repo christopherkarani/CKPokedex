@@ -13,6 +13,19 @@ protocol DatabaseService {
     var realmDatabase : Realm { get }
 }
 
+extension DatabaseService {
+    var realmDatabase : Realm {
+        get {
+            return try! Realm()
+        }
+    }
+}
+
 struct DatabaseManager: DatabaseService {
-    var realmDatabase : Realm
+}
+
+
+final class Database: DatabaseService {
+    var realmDatabase : Realm?
+    static let shared = Database()
 }

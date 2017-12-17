@@ -14,7 +14,6 @@ import RealmSwift
 import RxSwift
 
 class PokeCenter: NSObject, JSONDecodable{
-
     let databaseService : DatabaseService = DatabaseManager()
     func rx() {
         let schedular = SerialDispatchQueueScheduler(qos: .default)
@@ -41,7 +40,7 @@ class PokeCenter: NSObject, JSONDecodable{
         pokemon = items
         super.init()
         //
-        rx()
+        //rx()
     }
     
     func configureRealm() {
