@@ -115,7 +115,7 @@ class LoginViewController: UIViewController {
         SyncUser.logIn(with: credentials, server: url) { [weak self ] (user, error) in
             if error != nil {
                 print("Error")
-                //self?.indicator?.remove()
+                self?.indicator?.remove()
                 return
             }
             let sync = SyncConfiguration.init(user: user!, realmURL: url)

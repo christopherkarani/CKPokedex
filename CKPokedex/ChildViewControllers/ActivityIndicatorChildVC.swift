@@ -76,10 +76,14 @@ class ActivityIndicatorChildVC: UIViewController {
 
     var presenterView : PresenterView!
     override func viewDidLoad() {
+        super.viewDidLoad()
         setup()
-        
-        view.backgroundColor = .clear
-        
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            self?.presenterView.indicator.startAnimating()
+        }
     }
     
     func setup() {
