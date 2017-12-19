@@ -11,29 +11,32 @@ import RealmSwift
 import Sukari
 
 
-class LoginViewController: UIViewController {
+class CKTextField: UITextField {
+    init(placeholder: String) {
+        super.init(frame: .zero)
+        attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [.font : UIFont.systemFont(ofSize: 16), .foregroundColor: UIColor.init(white: 0.70, alpha: 0.90)])
+        borderStyle = .roundedRect
+        backgroundColor = UIColor(white: 0, alpha: 0.20)
+        textColor = .white
+        
+        if placeholder.lowercased() == "password" {
+            isSecureTextEntry = true
+        }
+    }
     
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
 
+class LoginViewController: UIViewController {
+    var stackViewHeight: CGFloat = 280
     
-    var stackViewHeight: CGFloat = 250
-    
-    
-    let emailTextField = UITextField().this {
-        $0.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [.font : UIFont.systemFont(ofSize: 16), .foregroundColor: UIColor.init(white: 0.70, alpha: 0.90)])
-    }
-    
-    let passwordTextField = UITextField().this {
-        $0.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [.font : UIFont.systemFont(ofSize: 16), .foregroundColor: UIColor.init(white: 0.70, alpha: 0.90)])
-        $0.textColor = .white
-        $0.isSecureTextEntry = true
-    }
-    
-    
-    let urlTextField = UITextField().this {
-        $0.attributedPlaceholder =  NSAttributedString(string: "Url", attributes: [.font : UIFont.systemFont(ofSize: 16), .foregroundColor: UIColor.init(white: 0.70, alpha: 0.90)])
-        $0.textColor = .white
-    }
-    
+    let emailTextField = CKTextField(placeholder: "Email")
+    let passwordTextField = CKTextField(placeholder: "Password")
+    let urlTextField = CKTextField(placeholder: "Url")
+
+
     lazy var signInButton = UIButton(type: .system).this { [weak self] in
         $0.setTitle("Sign In", for: .normal)
         $0.setTitleColor(.white, for: .normal)
@@ -44,23 +47,12 @@ class LoginViewController: UIViewController {
         $0.layer.cornerRadius = 5
     }
     
-    var emailTextFieldSeperatorLine : UIView = {
-        let view = UIView()
-        view.backgroundColor = .lightGray
-        return view
-    }()
-    
-    var urlTextFieldSeperatorLine : UIView = {
-        let view = UIView()
-        view.backgroundColor = .lightGray
-        return view
-    }()
     
     
     lazy var stackView : UIStackView = { [weak self] in
         guard let strongSelf = self else { return UIStackView() }
         var stack = UIStackView(arrangedSubviews: [strongSelf.emailTextField, strongSelf.urlTextField, strongSelf.passwordTextField, strongSelf.signInButton])
-        stack.spacing = 5
+        stack.spacing = 15
         stack.distribution = .fillEqually
         stack.axis = .vertical
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -139,25 +131,7 @@ class LoginViewController: UIViewController {
         view.addSubview(stackView)
         view.addSubview(loginSplashLogo)
         view.addSubview(loginSpalshImage)
-        
-        stackView.addSubview(emailTextFieldSeperatorLine)
-        stackView.addSubview(urlTextFieldSeperatorLine)
-        
-        emailTextFieldSeperatorLine.snp.makeConstraints { (make) in
-            make.top.equalTo(emailTextField.snp.bottom)
-            make.centerX.equalToSuperview()
-            make.height.equalTo(1)
-            make.width.equalToSuperview()
-        }
-        
-        urlTextFieldSeperatorLine.snp.makeConstraints { (make) in
-            make.top.equalTo(urlTextField.snp.bottom)
-            make.centerX.equalToSuperview()
-            make.height.equalTo(1)
-            make.width.equalToSuperview()
-        }
 
-        
         loginSplashLogo.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(100)
             make.centerX.equalToSuperview()
