@@ -8,6 +8,7 @@
 
 import UIKit
 import TRON
+import RxSwift
 
 
 protocol NetworkService {
@@ -17,11 +18,6 @@ protocol NetworkService {
 }
 
 extension NetworkService {
-//    var tron : TRON {
-//        get {
-//            return TRON(baseURL: "https://pokeapi.co/api/v2/")
-//        }
-//    }
     
     func fetchPokemon(completion: @escaping (([Pokemon]) -> Void)) {
         let request : APIRequest<PokeCenter, PokemonError> = tron.request(Path.pokemon)
@@ -34,12 +30,12 @@ extension NetworkService {
     }
     
     func fetchPokemonData(with urlString: String, completion: @escaping((PokemonData) -> Void)) {
-        let rawString = String.init(describing: urlString.prefix(34))
+        let rawString = String.init(describing: urlString.prefix(34)) 
         let indexString = urlString.replacingOccurrences(of: rawString, with: "")
         let path = Path.pokemon + indexString
         let reqest : APIRequest<PokemonData,PokemonError> = tron.request(path)
         reqest.perform(withSuccess: { (data) in
-            print("Data retrival complete")
+            print("Data retrival complete :", data)
             completion(data)
         }) { (error) in
             print(error)

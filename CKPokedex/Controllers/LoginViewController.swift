@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import Sukari
 
 
 class LoginViewController: UIViewController {
@@ -16,39 +17,32 @@ class LoginViewController: UIViewController {
     
     var stackViewHeight: CGFloat = 250
     
-    let emailTextField : UITextField = {
-        let tf = UITextField()
-        tf.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [.font : UIFont.systemFont(ofSize: 16), .foregroundColor: UIColor.init(white: 0.70, alpha: 0.90)])
-        return tf
-    }()
     
-    let passwordTextField : UITextField = {
-        let tf = UITextField()
-        //tf.placeholder = "Password"
-        tf.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [.font : UIFont.systemFont(ofSize: 16), .foregroundColor: UIColor.init(white: 0.70, alpha: 0.90)])
-        tf.textColor = .white
-        tf.isSecureTextEntry = true
-        return tf
-    }()
+    let emailTextField = UITextField().this {
+        $0.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [.font : UIFont.systemFont(ofSize: 16), .foregroundColor: UIColor.init(white: 0.70, alpha: 0.90)])
+    }
     
-    let urlTextField : UITextField = {
-        let tf = UITextField()
-        tf.attributedPlaceholder = NSAttributedString(string: "Url", attributes: [.font : UIFont.systemFont(ofSize: 16), .foregroundColor: UIColor.init(white: 0.70, alpha: 0.90)])
-        tf.textColor = .white
-        return tf
-    }()
+    let passwordTextField = UITextField().this {
+        $0.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [.font : UIFont.systemFont(ofSize: 16), .foregroundColor: UIColor.init(white: 0.70, alpha: 0.90)])
+        $0.textColor = .white
+        $0.isSecureTextEntry = true
+    }
     
-    lazy var signInButton: UIButton = { [weak self] in
-        let button = UIButton(type: .system)
-        button.setTitle("Sign In", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        button.backgroundColor = UIColor(r: 179, g: 62, b: 114)
-        button.addTarget(self, action: #selector(handleSignIn), for: .touchUpInside)
-        button.layer.masksToBounds = true
-        button.layer.cornerRadius = 5
-        return button
-    }()
+    
+    let urlTextField = UITextField().this {
+        $0.attributedPlaceholder =  NSAttributedString(string: "Url", attributes: [.font : UIFont.systemFont(ofSize: 16), .foregroundColor: UIColor.init(white: 0.70, alpha: 0.90)])
+        $0.textColor = .white
+    }
+    
+    lazy var signInButton = UIButton(type: .system).this { [weak self] in
+        $0.setTitle("Sign In", for: .normal)
+        $0.setTitleColor(.white, for: .normal)
+        $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        $0.backgroundColor = UIColor(r: 179, g: 62, b: 114)
+        $0.addTarget(self, action: #selector(handleSignIn), for: .touchUpInside)
+        $0.layer.masksToBounds = true
+        $0.layer.cornerRadius = 5
+    }
     
     var emailTextFieldSeperatorLine : UIView = {
         let view = UIView()
@@ -104,8 +98,12 @@ class LoginViewController: UIViewController {
             print("Email or Password Error")
             return
         }
-        guard !(user.isEmpty), !(password.isEmpty), !(urlString.isEmpty), let url = URL(string: urlString) else {
+        guard !(user.isEmpty), !(password.isEmpty), !(urlString.isEmpty)  else {
             print("EmailTextField or Password is empty")
+            return
+        }
+        guard let url = URL(string: urlString) else {
+            print("URL error")
             return
         }
         
@@ -130,7 +128,6 @@ class LoginViewController: UIViewController {
         }
     }
     
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
