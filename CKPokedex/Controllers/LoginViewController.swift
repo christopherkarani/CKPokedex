@@ -18,6 +18,8 @@ class CKTextField: UITextField {
         borderStyle = .roundedRect
         backgroundColor = UIColor(white: 0, alpha: 0.20)
         textColor = .white
+        autocapitalizationType = .none
+        autocorrectionType = .no
         
         if placeholder.lowercased() == "password" {
             isSecureTextEntry = true
@@ -46,9 +48,7 @@ class LoginViewController: UIViewController {
         $0.layer.masksToBounds = true
         $0.layer.cornerRadius = 5
     }
-    
-    
-    
+
     lazy var stackView : UIStackView = { [weak self] in
         guard let strongSelf = self else { return UIStackView() }
         var stack = UIStackView(arrangedSubviews: [strongSelf.emailTextField, strongSelf.urlTextField, strongSelf.passwordTextField, strongSelf.signInButton])
@@ -133,7 +133,7 @@ class LoginViewController: UIViewController {
         view.addSubview(loginSpalshImage)
 
         loginSplashLogo.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(100)
+            make.top.equalToSuperview().offset(80)
             make.centerX.equalToSuperview()
             make.width.equalTo(200)
             make.height.equalTo(100)
