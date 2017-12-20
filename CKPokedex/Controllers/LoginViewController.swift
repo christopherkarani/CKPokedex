@@ -38,7 +38,6 @@ class LoginViewController: UIViewController {
     let passwordTextField = CKTextField(placeholder: "Password")
     let urlTextField = CKTextField(placeholder: "Url")
 
-
     lazy var signInButton = UIButton(type: .system).this { [weak self] in
         $0.setTitle("Sign In", for: .normal)
         $0.setTitleColor(.white, for: .normal)
@@ -59,21 +58,17 @@ class LoginViewController: UIViewController {
         return stack
     }()
     
-    let loginSpalshImage: UIImageView = {
-       let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = #imageLiteral(resourceName: "pikachu")
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
+    let loginSpalshImage = UIImageView().this {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.image = #imageLiteral(resourceName: "pikachu")
+        $0.contentMode = .scaleAspectFit
+    }
     
-    let loginSplashLogo: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = #imageLiteral(resourceName: "pokedex")
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
+    let loginSplashLogo = UIImageView().this {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.image = #imageLiteral(resourceName: "pokedex")
+        $0.contentMode = .scaleAspectFit
+    }
     
     
     
@@ -86,11 +81,11 @@ class LoginViewController: UIViewController {
     }
     
     @objc func handleSignIn() {
-        guard let user = emailTextField.text, let password = passwordTextField.text, let urlString = urlTextField.text else {
-            print("Email or Password Error")
-            return
-        }
-        guard !(user.isEmpty), !(password.isEmpty), !(urlString.isEmpty)  else {
+        let email = emailTextField.text.unwrap(debug: "Email TextFied Error")
+        let password = passwordTextField.text.unwrap(debug: "Password TextField Error")
+        let urlString = urlTextField.text.unwrap(debug: "Url TextField Error")
+        
+        guard !(email.isEmpty), !(password.isEmpty), !(urlString.isEmpty)  else {
             print("EmailTextField or Password is empty")
             return
         }
@@ -98,10 +93,10 @@ class LoginViewController: UIViewController {
             print("URL error")
             return
         }
-        
+
         addIndicator()
         
-        let credentials = SyncCredentials.usernamePassword(username: user, password: password)
+        let credentials = SyncCredentials.usernamePassword(username: email, password: password)
         SyncUser.logIn(with: credentials, server: url) { [weak self ] (user, error) in
             if error != nil {
                 print("Error")
@@ -132,25 +127,25 @@ class LoginViewController: UIViewController {
         view.addSubview(loginSplashLogo)
         view.addSubview(loginSpalshImage)
 
-        loginSplashLogo.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(80)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(200)
-            make.height.equalTo(100)
+        loginSplashLogo.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(80)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(200)
+            $0.height.equalTo(100)
         }
         
-        loginSpalshImage.snp.makeConstraints { (make) in
-            make.top.equalTo(loginSplashLogo.snp.bottom).offset(10)
-            make.centerX.equalToSuperview()
-            make.height.equalTo(100)
-            make.width.equalTo(100)
+        loginSpalshImage.snp.makeConstraints {
+            $0.top.equalTo(loginSplashLogo.snp.bottom).offset(10)
+            $0.centerX.equalToSuperview()
+            $0.height.equalTo(100)
+            $0.width.equalTo(100)
         }
         
-        stackView.snp.makeConstraints { (make) in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(loginSpalshImage.snp.bottom).offset(10)
-            make.width.equalToSuperview().inset(30)
-            make.height.equalTo(stackViewHeight)
+        stackView.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(loginSpalshImage.snp.bottom).offset(10)
+            $0.width.equalToSuperview().inset(30)
+            $0.height.equalTo(stackViewHeight)
         }
     }
     
