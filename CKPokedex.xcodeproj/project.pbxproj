@@ -28,6 +28,7 @@
 		18E901061FBF5D5E0036F5D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18E901041FBF5D5E0036F5D3 /* LaunchScreen.storyboard */; };
 		18E9010F1FBF5FBC0036F5D3 /* CKPokeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E9010E1FBF5FBC0036F5D3 /* CKPokeCell.swift */; };
 		18E901111FBF60BD0036F5D3 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E901101FBF60BD0036F5D3 /* HomeController.swift */; };
+		18FE44171FED5B9700810E67 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE44161FED5B9600810E67 /* NavigationController.swift */; };
 		18FF3AE61FE641E0005156FB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FF3AE51FE641E0005156FB /* LoginViewController.swift */; };
 		18FF3AE81FE64D00005156FB /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FF3AE71FE64D00005156FB /* UIColor+Extension.swift */; };
 		18FF3AEB1FE66132005156FB /* ActivityIndicatorChildVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FF3AEA1FE66132005156FB /* ActivityIndicatorChildVC.swift */; };
@@ -57,6 +58,7 @@
 		18E901071FBF5D5E0036F5D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18E9010E1FBF5FBC0036F5D3 /* CKPokeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKPokeCell.swift; sourceTree = "<group>"; };
 		18E901101FBF60BD0036F5D3 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
+		18FE44161FED5B9600810E67 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		18FF3AE51FE641E0005156FB /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		18FF3AE71FE64D00005156FB /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		18FF3AEA1FE66132005156FB /* ActivityIndicatorChildVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorChildVC.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				1847F3201FC812140047DB4D /* CKPokemonIndexController.swift */,
 				18E901101FBF60BD0036F5D3 /* HomeController.swift */,
 				18FF3AE51FE641E0005156FB /* LoginViewController.swift */,
+				18FE44161FED5B9600810E67 /* NavigationController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -386,6 +389,7 @@
 				18FF3AE61FE641E0005156FB /* LoginViewController.swift in Sources */,
 				1824DD401FCDB07A00896771 /* Path.swift in Sources */,
 				1824DD3E1FCDB03D00896771 /* PokemonNetwork.swift in Sources */,
+				18FE44171FED5B9700810E67 /* NavigationController.swift in Sources */,
 				1824DD331FCCA97B00896771 /* NetworkService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

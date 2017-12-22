@@ -22,7 +22,7 @@ class PresenterView: UIView, UIIndicatorViewService {
     var textLabel: UILabel = {
         let label = UILabel()
         label.text = "Loading..."
-        label.attributedText = NSAttributedString(string: "Loading...", attributes: [.font : UIFont.boldSystemFont(ofSize: 30), .foregroundColor: UIColor.lightGray])
+        label.attributedText = NSAttributedString(string: "Loading...", attributes: [.font : UIFont.boldSystemFont(ofSize: 30), .foregroundColor: UIColor.gray])
         label.textAlignment = .center
         return label
     }()

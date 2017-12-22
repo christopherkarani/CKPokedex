@@ -75,6 +75,7 @@ class LoginViewController: UIViewController {
     var indicator: ActivityIndicatorChildVC?
     
     func addIndicator() {
+        
         indicator = ActivityIndicatorChildVC(nibName: nil, bundle: nil)
         guard indicator != nil else { return }
         add(indicator!)
@@ -99,7 +100,7 @@ class LoginViewController: UIViewController {
         let credentials = SyncCredentials.usernamePassword(username: email, password: password)
         SyncUser.logIn(with: credentials, server: url) { [weak self ] (user, error) in
             if error != nil {
-                print("Error")
+                print("Error: ", error!)
                 self?.indicator?.remove()
                 return
             }
