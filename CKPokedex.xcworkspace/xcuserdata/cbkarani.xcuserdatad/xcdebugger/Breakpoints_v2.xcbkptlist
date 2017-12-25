@@ -10,29 +10,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CKPokedex/Database/DatabaseService.swift"
-            timestampString = "535201445.354516"
+            timestampString = "535884451.621836"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "19"
             endingLineNumber = "19"
             landmarkName = "realmDatabase"
             landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CKPokedex/Controllers/LoginViewController.swift"
-            timestampString = "535641579.949011"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
-            landmarkName = "handleSignIn()"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

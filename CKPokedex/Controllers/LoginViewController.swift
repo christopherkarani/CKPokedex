@@ -20,7 +20,6 @@ class CKTextField: UITextField {
         textColor = .white
         autocapitalizationType = .none
         autocorrectionType = .no
-        
         if placeholder.lowercased() == "password" {
             isSecureTextEntry = true
         }
@@ -34,9 +33,36 @@ class CKTextField: UITextField {
 class LoginViewController: UIViewController {
     var stackViewHeight: CGFloat = 280
     
-    let emailTextField = CKTextField(placeholder: "Email")
-    let passwordTextField = CKTextField(placeholder: "Password")
-    let urlTextField = CKTextField(placeholder: "Url")
+    let emailTextField = CKTextField(placeholder: "Email").this {
+        $0.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
+    }
+    let passwordTextField = CKTextField(placeholder: "Password").this {
+        $0.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
+    }
+    let urlTextField = CKTextField(placeholder: "Url").this {
+        $0.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
+    }
+    
+    @objc fileprivate func handleTextInputChange() {
+        var isFormValid : Bool = false
+        let email = emailTextField.text.unwrap()
+        let url = urlTextField.text.unwrap()
+        let password = passwordTextField.text.unwrap()
+        
+        if !(email.isEmpty) && password.count >= 6 && !(url.isEmpty) {
+            isFormValid = true
+        }
+        switch isFormValid {
+        case true:
+            signInButton.alpha = 1
+            signInButton.isUserInteractionEnabled = true
+            signInButton.backgroundColor = UIColor(r: 179, g: 62, b: 114)
+
+        case false:
+            signInButton.alpha = 0.5
+            signInButton.isUserInteractionEnabled = false
+        }
+    }
 
     lazy var signInButton = UIButton(type: .system).this { [weak self] in
         $0.setTitle("Sign In", for: .normal)
@@ -46,6 +72,7 @@ class LoginViewController: UIViewController {
         $0.addTarget(self, action: #selector(handleSignIn), for: .touchUpInside)
         $0.layer.masksToBounds = true
         $0.layer.cornerRadius = 5
+        $0.alpha = 0.5
     }
 
     lazy var stackView : UIStackView = { [weak self] in
@@ -99,15 +126,16 @@ class LoginViewController: UIViewController {
         
         let credentials = SyncCredentials.usernamePassword(username: email, password: password)
         SyncUser.logIn(with: credentials, server: url) { [weak self ] (user, error) in
-            if error != nil {
-                print("Error: ", error!)
-                self?.indicator?.remove()
-                return
-            }
-            let sync = SyncConfiguration.init(user: user!, realmURL: url)
-            let config =  Realm.Configuration(syncConfiguration: sync)
-            let realm = try! Realm(configuration: config)
-            Database.shared.realmDatabase = realm
+//            if error != nil {
+//                print("Error: ", error!)
+//                self?.indicator?.remove()
+//                self?.dismiss(animated: true, completion: nil);
+//                return
+//            }
+//            let sync = SyncConfiguration.init(user: user!, realmURL: url)
+//            let config =  Realm.Configuration(syncConfiguration: sync)
+//            let realm = try! Realm(configuration: config)
+//            Database.shared.realmDatabase = realm
             UserDefaults.standard.setLoggedInState(true)
             self?.indicator?.remove()
             

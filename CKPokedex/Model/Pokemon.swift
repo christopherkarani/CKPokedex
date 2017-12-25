@@ -13,7 +13,7 @@ import Realm
 
 
 class Pokemon: Object {
-    let database : Realm = Database.shared.realmDatabase
+    let database : Realm = Database().realmDatabase
     @objc dynamic var name: String?
     @objc dynamic var urlString : String?
     
