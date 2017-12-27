@@ -126,16 +126,16 @@ class LoginViewController: UIViewController {
         
         let credentials = SyncCredentials.usernamePassword(username: email, password: password)
         SyncUser.logIn(with: credentials, server: url) { [weak self ] (user, error) in
-//            if error != nil {
-//                print("Error: ", error!)
-//                self?.indicator?.remove()
-//                self?.dismiss(animated: true, completion: nil);
-//                return
-//            }
-//            let sync = SyncConfiguration.init(user: user!, realmURL: url)
-//            let config =  Realm.Configuration(syncConfiguration: sync)
-//            let realm = try! Realm(configuration: config)
-//            Database.shared.realmDatabase = realm
+            if error != nil {
+                print("Error: ", error!)
+                self?.indicator?.remove()
+                self?.dismiss(animated: true, completion: nil);
+                return
+            }
+            let sync = SyncConfiguration.init(user: user!, realmURL: url)
+            let config =  Realm.Configuration(syncConfiguration: sync)
+            let realm = try! Realm(configuration: config)
+            Database.shared.realmDatabase = realm
             UserDefaults.standard.setLoggedInState(true)
             self?.indicator?.remove()
             

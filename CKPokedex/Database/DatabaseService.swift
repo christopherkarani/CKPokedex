@@ -26,5 +26,6 @@ struct DatabaseManager: DatabaseService {
 
 
 final class Database: DatabaseService {
-    var realmDatabase : Realm = try! Realm()
+    var realmDatabase : Realm?
+    static let shared = Database()
 }
